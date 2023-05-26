@@ -20,13 +20,16 @@ namespace NorthwndEntityApp
         private void TSMI_categories_Click(object sender, EventArgs e)
         {
             var categoriesList = from x in db.Categories
-                                 select new { ID = x.CategoryID, Isim = x.CategoryName, Aciklama = x.Description};
+                                 select new { KategoriSırası = x.CategoryID, Isim = x.CategoryName, Aciklama = x.Description };
             dgv_list.DataSource = categoriesList.ToList();
         }
 
         private void TSMI_products_Click(object sender, EventArgs e)
         {
-
+            var productList = from x in db.Products
+                              where x.Discontinued == true
+                              select new { ÜrünSırası = x.ProductID, ÜrünAdı = x.ProductName, Fiyat = x.UnitPrice + " ₺" };
+            dgv_list.DataSource = productList.ToList();
         }
 
         private void TSMI_suppliers_Click(object sender, EventArgs e)
